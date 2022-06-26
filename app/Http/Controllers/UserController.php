@@ -31,14 +31,14 @@ class UserController extends Controller
     public function userOffers()
     {
        $offers = $this->modelOffer->with('vehicles.categories')->where('user_id', '=', $this->session->id)->get();
-       return json_encode($offers, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+       return json_encode($offers);
     }
     
     public function show()
     {
       $mainInfo = $this->model->show($this->session->id);
       $offersInfo = $this->userOffers();
-      $userData = (object)[$mainInfo, "offers" => $offersInfo];
+      $userData = (object)array_merge([$mainInfo], ["offers" => $offersInfo]);
     
      return $userData;
     }
