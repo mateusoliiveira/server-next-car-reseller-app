@@ -26,7 +26,7 @@ Route::prefix('v1')->group(function () {
             Route::controller(UserController::class)
             ->prefix('data')
             ->group(function () {
-                Route::get('', 'with');
+                Route::get('', 'show');
             });
     });
 
@@ -93,9 +93,11 @@ Route::prefix('v1')->group(function () {
             ///////////////////////////////////////
             //expec: store one offer
             Route::get('{id}', 'show');
+            //expec: find all offers by user
+            Route::get('by/user/{id}', 'showByUser');
             //expec: find all offers by car
             Route::get('by/vehicle/{vehicle_name}', 'showByVehicleName');
-            //expec: find all offers by car
+            //expec: find all offers by brand
             Route::get('by/brand/{id}', 'showByBrandId');
     });
 });

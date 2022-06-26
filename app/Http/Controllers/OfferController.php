@@ -30,6 +30,11 @@ class OfferController extends Controller
        return $this->model->with('vehicles.categories')->find($id);
     }
 
+    public function showByUser($id)
+    {
+       return $this->model->with('vehicles.categories')->where('user_id', '=', $id)->get();
+    }
+
     public function showByVehicleName($vehicle)
     {
        return $this->model->where('title', 'LIKE', "%$vehicle%")->get();
