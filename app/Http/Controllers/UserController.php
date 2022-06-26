@@ -35,6 +35,8 @@ class UserController extends Controller
     
     public function showOffers()
     {
-       return $this->modelOffer->with('vehicles.categories')->where('user_id', '=', $this->session->id)->get();
+       $offers = $this->modelOffer->with('vehicles.categories')->where('user_id', '=', $this->session->id)->get();
+       $parsedOffers = json_encode((str_replace('"', "'", $offers)));   
+       return $parsedOffers;
     }
 }
