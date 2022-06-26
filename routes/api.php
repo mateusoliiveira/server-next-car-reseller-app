@@ -93,8 +93,6 @@ Route::prefix('v1')->group(function () {
             ///////////////////////////////////////
             //expec: store one offer
             Route::get('{id}', 'show');
-            //expec: find all offers by user
-            Route::get('by/user/{id}', 'showByUser');
             //expec: find all offers by car
             Route::get('by/vehicle/{vehicle_name}', 'showByVehicleName');
             //expec: find all offers by brand
