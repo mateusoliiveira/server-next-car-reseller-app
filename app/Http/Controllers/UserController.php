@@ -38,7 +38,7 @@ class UserController extends Controller
     {
       $mainInfo = $this->model->show($this->session->id);
       $offersInfo = $this->userOffers();
-      $userData = (object)array(...$mainInfo, "offers" => $offersInfo);
+      $userData = (object)[$mainInfo, "offers" => $offersInfo];
     
      return $userData;
     }
