@@ -28,19 +28,14 @@ class UserController extends Controller
        
     }
 
-    public function userOffers()
+    public function withOffers()
     {
-       $offers = $this->modelOffer->with('vehicles.categories')->where('user_id', '=', $this->session->id)->get();
-       return json_encode($offers);
+      return $this->modelOffer->with('vehicles.categories')->where('user_id', '=', $this->session->id)->get();
     }
     
     public function show()
     {
-      $mainInfo = $this->model->show($this->session->id);
-      $offersInfo = $this->userOffers();
-      $userData = (object)array_merge([$mainInfo], ["offers" => $offersInfo]);
-    
-     return $userData;
+      return $this->model->show($this->session->id);
     }
 
     

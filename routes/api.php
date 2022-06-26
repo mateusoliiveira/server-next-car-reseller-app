@@ -27,6 +27,7 @@ Route::prefix('v1')->group(function () {
             ->prefix('data')
             ->group(function () {
                 Route::get('', 'show');
+                Route::get('offers', 'withOffers');
             });
     });
 
