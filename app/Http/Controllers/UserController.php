@@ -32,6 +32,6 @@ class UserController extends Controller
 
     public function with()
     {
-       return $this->model->with('offers.vehicles')->find($this->session->id);
+       return $this->model->with('offers.vehicles')->show($this->session->id);
     }
 }
