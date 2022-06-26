@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
@@ -27,9 +26,7 @@ Route::prefix('v1')->group(function () {
             Route::controller(UserController::class)
             ->prefix('data')
             ->group(function () {
-                Route::get('', 'show');
-                //expec: find one brand with cars
-                Route::get('/offers', 'with');
+                Route::get('', 'with');
             });
     });
 
