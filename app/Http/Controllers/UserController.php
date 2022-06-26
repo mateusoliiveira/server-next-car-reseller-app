@@ -37,6 +37,6 @@ class UserController extends Controller
     {
        $offers = $this->modelOffer->with('vehicles.categories')->where('user_id', '=', $this->session->id)->get();
        $parsedOffers = json_encode((str_replace("'", '"', $offers)), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);   
-       return $parsedOffers;
+       return utf8_encode($parsedOffers);
     }
 }
