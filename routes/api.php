@@ -27,7 +27,11 @@ Route::prefix('v1')->group(function () {
             ->prefix('data')
             ->group(function () {
                 Route::get('', 'show');
-                Route::get('offers', 'withOffers');
+            });
+            Route::controller(UserController::class)
+            ->prefix('offers')
+            ->group(function () {
+                Route::get('', 'showOffers');
             });
     });
 
