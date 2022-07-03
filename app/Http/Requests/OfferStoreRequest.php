@@ -22,8 +22,8 @@ class OfferStoreRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
-    {        
-        return [ 
+    {
+        return [
             'brand_id' => 'required|string|exists:brands,id',
             'category_id' => 'required|string|exists:categories,id',
             'vehicle_id' => 'required|string|exists:vehicles,id',
@@ -32,7 +32,7 @@ class OfferStoreRequest extends FormRequest
             'price' => 'required|numeric',
             'contact' => 'required|numeric|digits:11',
             'zip_code' => 'required|numeric|digits:8',
-            'file' => 'required|image'
+            'picture' => 'required|string'
         ];
     }
 }

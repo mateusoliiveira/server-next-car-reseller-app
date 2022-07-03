@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('brand_id'); 
+            $table->uuid('brand_id');
             $table->uuid('category_id');
             $table->boolean('is_electric')->default(false);
             $table->boolean('is_automatic')->default(false);
-            $table->string('name', 50)->unique();
+            $table->string('name', 50);
             $table->integer('year');
             $table->integer('doors')->default(0);
             $table->decimal('liters', 8, 2)->default(0);
