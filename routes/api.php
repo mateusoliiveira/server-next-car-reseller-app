@@ -82,6 +82,8 @@ Route::prefix('v1')->group(function () {
             Route::get('{id}', 'show');
             //expec: store one vehicle
             Route::post('', 'store');
+            //expec: store one category
+            Route::post('bulk', 'insert');
             //expec: delete one vehicle
             Route::delete('{id}', 'destroy');
     });
