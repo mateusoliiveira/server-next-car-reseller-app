@@ -42,18 +42,17 @@ class OfferController extends Controller
 
     public function store(OfferStoreRequest $request)
     {
-      $validated = $request->validated();
-      $data = $validated;
       $user = Auth::user();
-      $data['user_id'] = $user->id;
+      $request['user_id'] = $user->id;
 
-    //  if($request->file('file')){
-    //     $file = $request->file('file');
-    //     $filename = date('YmdHi').$file->getClientOriginalName();
-    //     $file->move(public_path('public/image/offers'), $filename);
-    //     $data['picture'] = $filename;
-    // }
-      return $this->model->create($data);
+      //  if($request->file('file')){
+      //     $file = $request->file('file');
+      //     $filename = date('YmdHi').$file->getClientOriginalName();
+      //     $file->move(public_path('public/image/offers'),$filename);
+      //     $data['picture'] = $filename;
+      // }
+
+      return $this->model->create($request);
     }
 
     public function insert(Request $request)
