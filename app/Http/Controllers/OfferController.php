@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OfferStoreRequest;
+use App\Http\Requests\OfferRequest;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Repositories\Repository;
@@ -40,10 +40,10 @@ class OfferController extends Controller
       return $this->modelBrand->with('offers.vehicles.categories')->find($id);
     }
 
-    public function store(OfferStoreRequest $request)
+    public function store(OfferRequest $request)
     {
-      $user = Auth::user();
-      $request['user_id'] = $user->id;
+
+      $request['user_id'] = $request->authedUser()->id;
 
       //  if($request->file('file')){
       //     $file = $request->file('file');

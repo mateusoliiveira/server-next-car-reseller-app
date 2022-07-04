@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class OfferStoreRequest extends FormRequest
+class OfferRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -34,5 +35,41 @@ class OfferStoreRequest extends FormRequest
             'zip_code' => 'required|numeric|digits:8',
             'picture' => 'required|string'
         ];
+    }
+
+    public function authedToken()
+    {
+        $token = Auth::attempt($this->all());
+        if (!$token)
+        { return response()->json([
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+        return $token;
+    }
+
+    public function authedUser()
+    {
+        $user = Auth::user();
+        if(!$user) {
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);
+        }
+        return $user;
+    }
+
+    public function authedLogout()
+    {
+        Auth::logout();
+        return response()->json([
+            'message' => 'Logged Out',
+        ], 200);
+    }
+
+    public function authedRefreshToken()
+    {
+        $refreshed = Auth::refresh();
+        return $refreshed;
     }
 }
