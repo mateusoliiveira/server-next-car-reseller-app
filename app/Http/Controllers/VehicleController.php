@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\Repository;
-use App\Models\Vehicle;
+use App\Repositories\Contracts\VehicleRepositoryInterface;
 use Ramsey\Uuid\Rfc4122\UuidV4;
 
 class VehicleController extends Controller
 {
-    protected $vehicle;
-    public function __construct(Vehicle $vehicle)
+    protected $model;
+    public function __construct(
+        VehicleRepositoryInterface $model
+        )
     {
-       $this->model = new Repository($vehicle);
+       $this->model = $model;
     }
 
     public function index()

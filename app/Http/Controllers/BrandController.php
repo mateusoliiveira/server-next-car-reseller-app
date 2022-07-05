@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Contracts\BrandRepositoryInterface;
 use Illuminate\Http\Request;
-use App\Repositories\Repository;
-use App\Models\Brand;
 use Ramsey\Uuid\Rfc4122\UuidV4;
 
 class BrandController extends Controller
 {
     protected $model;
-    public function __construct(Brand $brand)
+    public function __construct(
+        BrandRepositoryInterface $model,
+        )
     {
-       $this->model = new Repository($brand);
+        $this->model = $model;
     }
 
     public function index()

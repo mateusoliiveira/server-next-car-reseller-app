@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\Repository;
-use App\Models\Category;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 use Ramsey\Uuid\Rfc4122\UuidV4;
 
 class CategoryController extends Controller
 {
     protected $model;
-    public function __construct(Category $category)
+    public function __construct(
+        CategoryRepositoryInterface $model,
+        )
     {
-       $this->model = new Repository($category);
+        $this->model = $model;
     }
 
     public function index()

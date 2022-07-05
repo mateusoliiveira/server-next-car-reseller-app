@@ -16,44 +16,12 @@ class UserRequest extends FormRequest
         return true;
     }
 
-    public function genericRules()
-    {        
+    public function rules()
+    {
         return [
+            'email' => 'required|string|email|min:10|max:50|unique:users,email',
+            'name' => 'required|string|max:50',
             'password' => 'required|string|min:6|max:20',
         ];
     }
-
-    public function login()
-    {        
-        return [
-            'email' => 'required|string|email',
-        ];
-    }
-
-    public function register()
-    {        
-        return [
-            'email' => 'required|string|email|min:10|max:50|unique:users',
-            'name' => 'required|string|max:50',
-
-        ];
-    }
-    
-    public function rules()
-    {   
-        $genericRules = $this->genericRules();
-        $withLoginRules = $this->login();
-        $withRegisterRules = $this->register();
-
-        if(is_null($this['name']))
-        {
-            $loginFlow = array_merge($genericRules, $withLoginRules);
-            return $loginFlow;
-           
-        }
-
-        $registerFlow = array_merge($genericRules, $withRegisterRules);
-        return $registerFlow;
-    }
-
 }

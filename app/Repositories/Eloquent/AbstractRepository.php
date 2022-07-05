@@ -1,14 +1,16 @@
-<?php 
-namespace App\Repositories;
-use Illuminate\Database\Eloquent\Model;
+<?php
 
-class Repository implements RepositoryInterface
+
+namespace App\Repositories\Eloquent;
+
+abstract class AbstractRepository
 {
+
     protected $model;
 
-    public function __construct(Model $model)
+    public function __construct()
     {
-        $this->model = $model;
+        $this->model = $this->resolveModel();
     }
 
     public function get()
@@ -41,28 +43,19 @@ class Repository implements RepositoryInterface
         return $this->model->find($id);
     }
 
-    public function with($table) 
+    public function with($table)
     {
         return $this->model->with($table);
     }
 
-    public function has($table) 
+    public function has($table)
     {
         return $this->model->has($table);
     }
 
-    ////////////////////////////////////////////
-
-    public function getModel()
+    protected function resolveModel()
     {
-        return $this->model;
+        return app($this->model);
     }
 
-    public function setModel($model)
-    {
-        $this->model = $model;
-        return $this;
-    }
-
-    
 }

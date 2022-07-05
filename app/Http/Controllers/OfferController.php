@@ -3,22 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OfferRequest;
-use App\Models\Brand;
 use Illuminate\Http\Request;
-use App\Repositories\Repository;
-use App\Models\Offer;
-use Illuminate\Support\Facades\Auth;
+use App\Repositories\Contracts\BrandRepositoryInterface;
+use App\Repositories\Contracts\OfferRepositoryInterface;
 use Ramsey\Uuid\Rfc4122\UuidV4;
 
 class OfferController extends Controller
 {
-    protected $offer;
-    protected $brand;
-    public function __construct(Offer $offer, Brand $brand)
+    protected $model;
+    protected $modelBrand;
+    public function __construct(
+        OfferRepositoryInterface $model,
+        BrandRepositoryInterface $modelBrand
+        )
     {
-      $this->model = new Repository($offer);
-      $this->modelBrand = new Repository($brand);
+        $this->model = $model;
+        $this->modelBrand = $modelBrand;
     }
+
 
     public function index()
     {

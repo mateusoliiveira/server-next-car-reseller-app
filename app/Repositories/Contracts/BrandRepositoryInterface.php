@@ -1,6 +1,8 @@
-<?php namespace App\Repositories;
+<?php
 
-interface RepositoryInterface
+namespace App\Repositories\Contracts;
+
+interface BrandRepositoryInterface
 {
     public function get();
     public function where($table, $type, $q);

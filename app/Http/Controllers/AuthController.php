@@ -2,33 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-use App\Repositories\Repository;
+use App\Repositories\Contracts\UserRepositoryInterface;
 
 class AuthController extends Controller
 {
     protected $model;
-    public function __construct(User $user)
+    public function __construct(
+        UserRepositoryInterface $model,
+        AuthRequest $request
+        )
     {
-       $this->model = new Repository($user);
+        $this->model = $model;
+        $this->request = $request;
     }
 
-    public function login(UserRequest $request)
-    {   
-        $validated = $request->validated();
-        $data = $validated;
-        $token = Auth::attempt($data);
-        
-        if (!$token) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Unauthorized',
-            ], 401);
-        }
-        $user = Auth::user();
+    public function login()
+    {
+        $token = $this->request->authedToken();
+        $user = $this->request->authedUser();
         return response()->json([
                 'message' => 'Usuário logado',
                 'user' => $user,
@@ -36,44 +29,27 @@ class AuthController extends Controller
             ]);
     }
 
-    public function register(UserRequest $request){
-        $validated = $request->validated();
-        $data = $validated;
-        $data['password'] = Hash::make($data['password']);
-        $user = $this->model->create($data);
-        $token = Auth::login($user);
-        return response()->json([
-            'message' => 'Sua conta foi criada :)',
-            'user' => $user,
-            'token' => $token,
-        ]);
-    }
-
     public function logout()
     {
-        Auth::logout();
-        return response()->json([
-            'message' => 'Successfully logged out',
-        ]);
+       $this->request->authedLogout();
     }
 
     public function me()
     {
         return response()->json([
-            'user' => Auth::user(),
-        ]);
+            'user' => $this->request->authedUser(),
+        ], 200);
     }
 
     public function refresh()
     {
         return response()->json([
             'status' => 'success',
-            'user' => Auth::user(),
+            'user' => $this->request->authedUser(),
             'authorisation' => [
                 'token' => Auth::refresh(),
                 'type' => 'bearer',
             ]
         ]);
     }
-
 }
