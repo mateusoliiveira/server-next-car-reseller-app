@@ -10,6 +10,7 @@ class OfferController extends Controller
 {
     protected $model;
     protected $modelBrand;
+    protected $request;
     public function __construct(
         OfferRepositoryInterface $model,
         BrandRepositoryInterface $modelBrand,

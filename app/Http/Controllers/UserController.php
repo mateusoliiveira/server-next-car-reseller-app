@@ -8,6 +8,7 @@ class UserController extends Controller
 {
     protected $model;
     protected $modelOffer;
+    protected $request;
     public function __construct(
         UserRepositoryInterface $model,
         OfferRepositoryInterface $modelOffer

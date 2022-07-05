@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\VehicleRequest;
 use App\Repositories\Contracts\VehicleRepositoryInterface;
 use Ramsey\Uuid\Rfc4122\UuidV4;
-use VehicleRequest;
 
 class VehicleController extends Controller
 {
     protected $model;
+    protected $request;
     public function __construct(
         VehicleRepositoryInterface $model,
         VehicleRequest $request

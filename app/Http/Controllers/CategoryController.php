@@ -8,6 +8,7 @@ use Ramsey\Uuid\Rfc4122\UuidV4;
 class CategoryController extends Controller
 {
     protected $model;
+    protected $request;
     public function __construct(
         CategoryRepositoryInterface $model,
         CategoryRequest $request

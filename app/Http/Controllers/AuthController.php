@@ -8,6 +8,7 @@ use App\Repositories\Contracts\UserRepositoryInterface;
 class AuthController extends Controller
 {
     protected $model;
+    protected $request;
     public function __construct(
         UserRepositoryInterface $model,
         AuthRequest $request
