@@ -25,7 +25,11 @@ class UserController extends Controller
 
     public function store()
     {
-       return $this->model->create($this->request->userHashed());
+        $user = $this->model->create($this->request->userHashed());
+        return response()->json([
+            'message' => 'Conta criada com sucesso, seja bem vindo!',
+            $user,
+        ], 201);
     }
 
     public function showOffers()
