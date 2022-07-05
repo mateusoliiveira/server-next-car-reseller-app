@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use Ramsey\Uuid\Rfc4122\UuidV4;
 
@@ -11,9 +10,11 @@ class CategoryController extends Controller
     protected $model;
     public function __construct(
         CategoryRepositoryInterface $model,
+        CategoryRequest $request
         )
     {
         $this->model = $model;
+        $this->request = $request;
     }
 
     public function index()
@@ -26,19 +27,19 @@ class CategoryController extends Controller
        return $this->model->with('vehicles.categories')->get();
     }
 
-    public function store(Request $request)
+    public function store()
     {
-       return $this->model->create($request->all());
+       return $this->model->create($this->request->all());
     }
 
-    public function insert(Request $request)
+    public function insert()
     {
        return $this->model->insert((array_map(fn($request): array => [
          "id" => UuidV4::uuid4(),
          "created_at" => now(),
          "updated_at" => now(),
          ...$request
-       ], $request->all())));
+       ], $this->request->all())));
     }
 
     public function show($id)

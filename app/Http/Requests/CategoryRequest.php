@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class BrandController extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class BrandController extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:50|min:3',
+            'name' => 'required|string|max:25|min:3',
             'picture' => 'required|string'
         ];
     }

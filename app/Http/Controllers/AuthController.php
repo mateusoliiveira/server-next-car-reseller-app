@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Contracts\UserRepositoryInterface;

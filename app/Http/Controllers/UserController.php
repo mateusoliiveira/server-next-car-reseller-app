@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Repositories\Contracts\OfferRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 
@@ -9,7 +8,6 @@ class UserController extends Controller
 {
     protected $model;
     protected $modelOffer;
-    protected $session;
     public function __construct(
         UserRepositoryInterface $model,
         OfferRepositoryInterface $modelOffer
@@ -17,11 +15,6 @@ class UserController extends Controller
     {
         $this->model = $model;
         $this->modelOffer = $modelOffer;
-    }
-
-    public function show()
-    {
-       return $this->model->show($this->session->id);
     }
 
     public function showOffers()
