@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Repositories\Contracts\OfferRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -16,6 +17,13 @@ class UserController extends Controller
     {
         $this->model = $model;
         $this->modelOffer = $modelOffer;
+    }
+
+
+    public function store()
+    {
+      $request['password'] = Hash::make($this->request['password']);
+      return $this->user->create($this->request->all());
     }
 
     public function showOffers()
