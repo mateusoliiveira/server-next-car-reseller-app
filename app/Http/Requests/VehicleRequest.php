@@ -24,6 +24,8 @@ class VehicleRequest extends FormRequest
      */
     public function rules()
     {
+        if($this->method() != 'POST' || $this->method() != 'PATCH') return [];
+
         return [
             'brand_id' => 'required|string|exists:brands,id',
             'category_id' => 'required|string|exists:categories,id',

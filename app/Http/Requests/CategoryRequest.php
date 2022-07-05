@@ -24,6 +24,8 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
+        if($this->method() != 'POST' || $this->method() != 'PATCH') return [];
+
         return [
             'name' => 'required|string|max:25|min:3',
             'picture' => 'required|string'
