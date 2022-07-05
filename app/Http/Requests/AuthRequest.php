@@ -27,7 +27,7 @@ class AuthRequest extends FormRequest
 
     public function authedToken()
     {
-        $token = Auth::attempt($this->all());
+        $token = Auth::attempt($this->validated());
         if (!$token)
         { return response()->json([
                 'message' => 'Unauthorized',
