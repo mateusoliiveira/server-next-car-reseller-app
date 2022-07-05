@@ -13,7 +13,7 @@ Route::prefix('v1')->group(function () {
         ->prefix('guests')
         ->group(function () {
             Route::post('login', 'login');
-            Route::controller(AuthController::class)
+            Route::controller(UserController::class)
                 ->group(function () {
                     Route::post('register', 'store');
             });
