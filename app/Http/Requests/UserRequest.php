@@ -18,7 +18,7 @@ class UserRequest extends FormRequest
 
     public function rules()
     {
-        if($this->method() != 'POST' || $this->method() != 'PATCH') return [];
+        if($this->method() != 'POST' && $this->method() != 'PATCH') return [];
 
         return [
             'email' => 'required|string|email|min:10|max:50|unique:users,email',
