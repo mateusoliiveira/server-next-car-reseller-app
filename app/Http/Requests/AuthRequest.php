@@ -26,7 +26,10 @@ class AuthRequest extends FormRequest
 
     public function authentication()
     {
-        $token = Auth::attempt($this->all());
+        $token = Auth::attempt([
+            'email' => $this['email'],
+            'password' => $this['password']
+        ]);
         if (!$token)
         {
             return response()->json([
