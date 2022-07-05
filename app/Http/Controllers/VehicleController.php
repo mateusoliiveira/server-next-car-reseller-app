@@ -26,7 +26,7 @@ class VehicleController extends Controller
 
     public function store()
     {
-       return $this->model->create($this->request->all());
+        return $this->model->create($this->request->validated());
     }
 
     public function insert()

@@ -27,7 +27,7 @@ class UserController extends Controller
     public function store()
     {
       $this->request['password'] = Hash::make($this->request['password']);
-      return $this->user->create($this->request->all());
+      return $this->model->create($this->request->validated());
     }
 
     public function showOffers()

@@ -52,7 +52,7 @@ class OfferController extends Controller
       //     $file->move(public_path('public/image/offers'),$filename);
       //     $data['picture'] = $filename;
       // }
-      $data = $this->request->all();
+      $data = $this->request->validated();
       $data['user_id'] = $user->id;
       return $this->model->create($data);
     }
