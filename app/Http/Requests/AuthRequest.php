@@ -25,15 +25,20 @@ class AuthRequest extends FormRequest
         ];
     }
 
-    public function authedToken()
+    public function authentication()
     {
-        $token = Auth::attempt($this->validated());
+        $token = Auth::attempt($this->all());
         if (!$token)
-        { return response()->json([
-                'message' => 'Unauthorized',
+        {
+            return response()->json([
+                'message' => 'Unauthorized'
             ], 401);
         }
-        return $token;
+        $user = $this->authedUser();
+        return response()->json([
+            'user' => $user,
+            'token' => $token
+        ]);
     }
 
     public function authedUser()

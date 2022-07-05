@@ -20,13 +20,7 @@ class AuthController extends Controller
 
     public function login()
     {
-        $token = $this->request->authedToken();
-        $user = $this->request->authedUser();
-        return response()->json([
-                'message' => 'Usuário logado',
-                'user' => $user,
-                'token' => $token,
-            ]);
+        return $this->request->authentication();
     }
 
     public function logout()
