@@ -26,16 +26,6 @@ Route::prefix('v1')->group(function () {
             Route::get('me', 'me');
             Route::post('logout', 'logout');
             Route::post('refresh', 'refresh');
-            Route::controller(UserController::class)
-            ->prefix('data')
-            ->group(function () {
-                Route::get('', 'show');
-            });
-            Route::controller(UserController::class)
-            ->prefix('offers')
-            ->group(function () {
-                Route::get('', 'showOffers');
-            });
     });
 
     Route::controller(BrandController::class)

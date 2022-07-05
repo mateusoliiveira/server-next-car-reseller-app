@@ -22,7 +22,6 @@ class UserController extends Controller
         $this->request = $request;
     }
 
-
     public function store()
     {
         $user = $this->model->create($this->request->userHashed());
@@ -30,12 +29,5 @@ class UserController extends Controller
             'message' => 'Conta criada com sucesso, seja bem vindo!',
             $user,
         ], 201);
-    }
-
-    public function showOffers()
-    {
-       $offers = $this->modelOffer->with('vehicles.categories')->where('user_id', '=', $this->session->id)->get();
-       $parsedOffers = json_encode((str_replace("'", '"', $offers)), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
-       return utf8_encode($parsedOffers);
     }
 }
