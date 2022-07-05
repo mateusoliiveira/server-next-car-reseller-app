@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\UserRequest;
 use App\Repositories\Contracts\OfferRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
@@ -12,11 +14,13 @@ class UserController extends Controller
     protected $request;
     public function __construct(
         UserRepositoryInterface $model,
-        OfferRepositoryInterface $modelOffer
+        OfferRepositoryInterface $modelOffer,
+        UserRequest $request
         )
     {
         $this->model = $model;
         $this->modelOffer = $modelOffer;
+        $this->request = $request;
     }
 
 
