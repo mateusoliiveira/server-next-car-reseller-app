@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function store()
     {
-      $request['password'] = Hash::make($this->request['password']);
+      $this->request['password'] = Hash::make($this->request['password']);
       return $this->user->create($this->request->all());
     }
 
