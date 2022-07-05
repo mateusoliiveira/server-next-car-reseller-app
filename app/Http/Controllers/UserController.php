@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Repositories\Contracts\OfferRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -26,9 +25,7 @@ class UserController extends Controller
 
     public function store()
     {
-      $create = $this->request->validated();
-      $create['password'] = Hash::make($create['password']);
-      return $this->model->create($this->request->validated());
+       return $this->model->create($this->request->userHashed());
     }
 
     public function showOffers()

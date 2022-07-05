@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserRequest extends FormRequest
 {
@@ -14,6 +15,12 @@ class UserRequest extends FormRequest
     public function authorize()
     {
         return true;
+    }
+
+    public function userHashed() {
+        $user = $this->validated();
+        $user['password'] = Hash::make($user['password']);
+        return $user;
     }
 
     public function rules()
