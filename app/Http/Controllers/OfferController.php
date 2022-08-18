@@ -47,7 +47,7 @@ class OfferController extends Controller
     {
       $user = $this->request->authedUser();
       $data = $this->request->validated();
-      $data['user_id'] = $user['id'];
+      $data['user_id'] = $user->id;
       return $this->model->create($data);
     }
 
