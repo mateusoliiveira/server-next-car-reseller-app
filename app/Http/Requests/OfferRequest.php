@@ -24,9 +24,7 @@ class OfferRequest extends FormRequest
      */
     public function rules()
     {
-        if($this->method() != 'POST' || $this->method() != 'PATCH') return [];
-
-        return [
+        return $this->method() === 'POST' || $this->method() === 'PATCH' ? [
             'brand_id' => 'required|string|exists:brands,id',
             'category_id' => 'required|string|exists:categories,id',
             'vehicle_id' => 'required|string|exists:vehicles,id',
@@ -36,7 +34,7 @@ class OfferRequest extends FormRequest
             'contact' => 'required|numeric|digits:11',
             'zip_code' => 'required|numeric|digits:8',
             'picture' => 'required|string'
-        ];
+        ] : [];
     }
 
     public function authedUser()
