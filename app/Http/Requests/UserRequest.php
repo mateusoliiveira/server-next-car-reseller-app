@@ -30,7 +30,7 @@ class UserRequest extends FormRequest
         if($this->method() == 'PATCH') return [
             'name' => 'sometimes|string|max:50',
             'password' => 'sometimes|string|min:6|max:20',
-        ]
+        ];
 
         return [
             'email' => 'required|string|email|min:10|max:50|unique:users,email',

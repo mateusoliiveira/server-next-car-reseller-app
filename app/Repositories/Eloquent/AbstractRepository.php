@@ -53,9 +53,9 @@ abstract class AbstractRepository
         return $this->model->has($table);
     }
 
-    public function update($table)
+    public function update($data)
     {
-        return $this->model->update($table);
+        return $this->model->update($data);
     }
 
     protected function resolveModel()
