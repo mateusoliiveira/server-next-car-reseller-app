@@ -34,7 +34,7 @@ class UserController extends Controller
     public function update()
     {
         $authed = $this->request->authedUser();
-        $find = $this->model->find($authed->id);
+        $find = $this->model->show($authed->id);
         if($find) {
             $newData = $this->request->validated();
             return response()->json([
