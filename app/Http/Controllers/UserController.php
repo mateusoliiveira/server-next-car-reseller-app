@@ -34,18 +34,18 @@ class UserController extends Controller
     public function update()
     {
         $authed = $this->request->authedUser();
+        $newData = $this->request->validated();
         $find = $this->model->show($authed->id);
-        if($find) {
-            $newData = $this->request->validated();
-            return response()->json([
-                'oldData' => $find,
-                'newData' => [...$find, ...$newData]
-            ], 200);
-            // $user = $this->model->update($authed->id, $this->request->userHashed());
-            // return response()->json([
-            //     'message' => 'Conta criada com sucesso, seja bem vindo!',
-            //     $user,
-            // ], 200);
-        }
+
+        isset($newData["name"]) && $find->name != $newData["name"] && $find->name = $newData["name"];
+        isset($newData["password"]) && $this->request->checkHashed($newData["old_password"], $find->password) &&
+        $find->password = $this->request->changeHashedPass($newData["password"]);
+
+        $toArrayUser = [
+          "id" => $find->id,
+          "name" => $find->name,
+          "password" => $find->password,
+        ];
+        return $this->model->where('id', '=', $find->id)->update($toArrayUser);
     }
 }
