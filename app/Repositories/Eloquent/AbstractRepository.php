@@ -53,6 +53,11 @@ abstract class AbstractRepository
         return $this->model->has($table);
     }
 
+    public function save($data)
+    {
+        return $this->model->save($data);
+    }
+
     public function update($data)
     {
         return $this->model->update($data);
