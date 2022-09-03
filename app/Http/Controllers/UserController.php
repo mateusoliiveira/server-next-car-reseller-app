@@ -22,6 +22,13 @@ class UserController extends Controller
         $this->request = $request;
     }
 
+    public function index()
+    {
+        $authed = $this->request->authedUser();
+        return $this->model->with('offers.vehicles.brands')->find($authed->id);
+    }
+
+
     public function store()
     {
         $user = $this->model->create($this->request->userHashed());
@@ -37,15 +44,30 @@ class UserController extends Controller
         $newData = $this->request->validated();
         $find = $this->model->show($authed->id);
 
-        isset($newData["name"]) && $find->name != $newData["name"] && $find->name = $newData["name"];
-        isset($newData["password"]) && $this->request->checkHashed($newData["old_password"], $find->password) &&
-        $find->password = $this->request->changeHashedPass($newData["password"]);
-
-        $toArrayUser = [
+        $infoToUpdate = [
           "id" => $find->id,
-          "name" => $find->name,
-          "password" => $find->password,
         ];
-        return $this->model->where('id', '=', $find->id)->update($toArrayUser);
+
+        if(isset($newData["name"])) {
+          $infoToUpdate["name"] = $newData["name"];
+          $this->model->where('id', '=', $find->id)->update($infoToUpdate);
+          return response()->json([
+            'message' => 'nome alterado com sucesso para '.$newData["name"]
+          ], 200);
+        }
+
+        $checkIfActualPassIsRight = $this->request->checkHashed($newData["old_password"], $find->password);
+          if(!$checkIfActualPassIsRight) {
+            return response()->json([
+              'errors' => ['old_password' => 'senha atual incorreta']
+            ], 401);
+          }
+
+        $infoToUpdate["password"] = $this->request->changeHashedPass($newData["password"]);
+        $this->model->where('id', '=', $find->id)->update($infoToUpdate);
+
+        return response()->json([
+          'message' => 'senha alterada com sucesso'
+        ], 200);
     }
 }
