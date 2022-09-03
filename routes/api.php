@@ -26,6 +26,11 @@ Route::prefix('v1')->group(function () {
             Route::get('me', 'me');
             Route::post('logout', 'logout');
             Route::post('refresh', 'refresh');
+            Route::controller(UserController::class)
+                ->group(function () {
+                    Route::get('', 'index');
+                    Route::patch('', 'update');
+            });
     });
 
     Route::controller(BrandController::class)
