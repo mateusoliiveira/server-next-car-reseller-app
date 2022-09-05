@@ -33,6 +33,12 @@ class OfferController extends Controller
        return $this->model->with('vehicles.categories')->find($id);
     }
 
+    public function showByOwn()
+    {
+      $user = $this->request->authedUser();
+      return $this->model->with('vehicles.brands')->where('user_id', '=', $user->id)->get();
+    }
+
     public function showByVehicleName($vehicle)
     {
        return $this->model->where('title', 'LIKE', "%$vehicle%")->with('vehicles.categories')->get();
@@ -59,6 +65,23 @@ class OfferController extends Controller
          "updated_at" => now(),
          ...$request
        ], $this->request->all())));
+    }
+
+    public function update($id)
+    {
+        $authed = $this->request->authedUser();
+        $newData = $this->request->validated();
+        $find = $this->model->show($id);
+
+        if ($find->user_id !== $authed->id) return response()->json([
+         'errors' => ['user_id' => 'não permitido']
+        ], 401);
+
+        $this->model->where('id', '=', $find->id)->update(['id' => $id, ...$newData]);
+
+        return response()->json([
+          'message' => 'anúncio alterado com sucesso'
+        ], 200);
     }
 
     public function destroy($id)
