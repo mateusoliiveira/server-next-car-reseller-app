@@ -91,12 +91,16 @@ Route::prefix('v1')->group(function () {
         ->group(function () {
             //expec: find all offers
             Route::get('', 'index');
-            //expec: find all offers from an user
+             //expec: find all offers by own authed user
+             Route::get('my', 'showByOwn');
+            //expec: create new offer from an user
             Route::post('', 'store');
+            //expec: update existing offer from an user
+            Route::patch('{id}', 'update');
             //expec: delete one offer
             Route::delete('{id}', 'destroy');
             ///////////////////////////////////////
-            //expec: store one offer
+            //expec: get one offer
             Route::get('{id}', 'show');
             //expec: find all offers by car
             Route::get('by/vehicle/{vehicle_name}', 'showByVehicleName');
