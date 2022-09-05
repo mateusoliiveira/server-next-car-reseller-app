@@ -12,5 +12,5 @@ interface OfferRepositoryInterface
     public function show($id);
     public function with($table);
     public function has($table);
-
+    public function update($data);
 }
