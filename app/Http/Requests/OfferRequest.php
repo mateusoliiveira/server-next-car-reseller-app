@@ -24,17 +24,31 @@ class OfferRequest extends FormRequest
      */
     public function rules()
     {
-        return $this->method() === 'POST' || $this->method() === 'PATCH' ? [
-            'brand_id' => 'required|string|exists:brands,id',
-            'category_id' => 'required|string|exists:categories,id',
-            'vehicle_id' => 'required|string|exists:vehicles,id',
-            'title' => 'required|string|max:50|min:10',
-            'description' => 'required|string|max:150|min:10',
-            'price' => 'required|numeric',
-            'contact' => 'required|numeric|digits:11',
-            'zip_code' => 'required|numeric|digits:8',
-            'picture' => 'required|string'
-        ] : [];
+      if($this->method() != 'POST' && $this->method() != 'PATCH') return [];
+
+      if($this->method() == 'PATCH') return [
+        'brand_id' => 'required|string|exists:brands,id',
+        'category_id' => 'required|string|exists:categories,id',
+        'vehicle_id' => 'required|string|exists:vehicles,id',
+        'title' => 'required|string|max:50|min:10',
+        'description' => 'required|string|max:150|min:10',
+        'price' => 'required|numeric',
+        'contact' => 'required|numeric|digits:11',
+        'zip_code' => 'required|numeric|digits:8',
+        'picture' => 'sometimes|string'
+      ];
+
+      return [
+        'brand_id' => 'required|string|exists:brands,id',
+        'category_id' => 'required|string|exists:categories,id',
+        'vehicle_id' => 'required|string|exists:vehicles,id',
+        'title' => 'required|string|max:50|min:10',
+        'description' => 'required|string|max:150|min:10',
+        'price' => 'required|numeric',
+        'contact' => 'required|numeric|digits:11',
+        'zip_code' => 'required|numeric|digits:8',
+        'picture' => 'required|string'
+      ];
     }
 
     public function authedUser()
