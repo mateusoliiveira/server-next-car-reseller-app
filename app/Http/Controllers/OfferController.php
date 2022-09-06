@@ -41,7 +41,7 @@ class OfferController extends Controller
 
     public function showByVehicleName($vehicle)
     {
-       return $this->model->where('title', 'ILIKE', "%$vehicle%")->with('vehicles.categories')->get();
+       return $this->model->where('title', 'LIKE', "%$vehicle%")->with('vehicles.categories')->get();
     }
 
     public function showByBrandId($id)
@@ -86,6 +86,13 @@ class OfferController extends Controller
 
     public function destroy($id)
     {
-       return $this->model->delete($id);
+      $authed = $this->request->authedUser();
+      $find = $this->model->show($id);
+
+      if ($find->user_id !== $authed->id) return response()->json([
+       'errors' => ['user_id' => 'não permitido']
+      ], 401);
+
+      return $this->model->delete($id);
     }
 }
