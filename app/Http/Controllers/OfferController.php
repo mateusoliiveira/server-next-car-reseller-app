@@ -41,7 +41,7 @@ class OfferController extends Controller
 
     public function showByVehicleName($vehicle)
     {
-       return $this->model->where('title', 'LIKE', "%$vehicle%")->with('vehicles.categories')->get();
+       return $this->model->where('title', 'ILIKE', "%$vehicle%")->with('vehicles.categories')->get();
     }
 
     public function showByBrandId($id)
