@@ -33,8 +33,7 @@ class UserController extends Controller
     {
         $user = $this->model->create($this->request->userHashed());
         return response()->json([
-            'message' => 'Conta criada com sucesso, seja bem vindo!',
-            $user,
+            'message' => $user->name.', sua conta criada com sucesso. Seja bem vindo!',
         ], 201);
     }
 
